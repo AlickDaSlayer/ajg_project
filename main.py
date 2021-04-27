@@ -27,12 +27,11 @@ class Player(pygame.sprite.Sprite):
         self.rect.y = y
         self.left_pressed = False
         self.right_pressed = False
+        self.jumping = False
         self.y_momentum = 0
         self.velX = 0
         self.bounce = 0
 
-    # def set_speed(self, val):
-    #     self.speed = val
 
     def update(self):
         self.velX = 0
