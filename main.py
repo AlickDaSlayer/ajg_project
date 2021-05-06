@@ -4,6 +4,7 @@ import sys
 import random
 import math
 from classes import *
+from maps import *
 
 
 BLACK = (0, 0, 0)
@@ -13,6 +14,7 @@ YELLOW = (255, 255, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 
+
 display = (800, 480)                                # Set screen width,height
 screen = pygame.display.set_mode(display)           # Create window
 pygame.display.set_caption("Project")               # Title
@@ -20,10 +22,34 @@ pygame.init()
 
 all_sprite_group = pygame.sprite.Group()
 
-player = Player(BLUE, 20, 20, 200, screen.get_height()-20)
+player = Player(BLUE, 16, 16, screen.get_width()/2, 400)
 all_sprite_group.add(player)
 
+wall_group = pygame.sprite.Group()
+
 clock = pygame.time.Clock()
+
+
+def draw_map():
+    x = 0
+    y = 0
+
+    for row in map:
+        for col in row:
+            if col == 1:
+                grass_wall = Wall("assets/grass.png", 16, 16, x, y)
+                screen.blit(grass_wall.image, [grass_wall.rect.x, grass_wall.rect.y])
+                all_sprite_group.add(grass_wall)
+                wall_group.add(grass_wall)
+            if col == 2:
+                dirt_wall = Wall("assets/dirt.png", 16, 16, x, y)
+                screen.blit(dirt_wall.image, [dirt_wall.rect.x, dirt_wall.rect.y])
+                all_sprite_group.add(dirt_wall)
+                wall_group.add(dirt_wall)
+            x += 16
+        x = 0
+        y += 16
+draw_map()
 
 
 def main():

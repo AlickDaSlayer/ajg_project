@@ -25,3 +25,13 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.x += self.velX
         self.rect.y += self.y_momentum
+
+
+class Wall(pygame.sprite.Sprite):
+    def __init__(self, sprite, width, height, x, y):
+        super().__init__()
+        self.surface = pygame.Surface([width, height])
+        self.image = pygame.image.load(sprite)
+        self.rect = self.surface.get_rect()
+        self.rect.x = x
+        self.rect.y = y
