@@ -21,10 +21,6 @@ pygame.display.set_caption("Project")               # Title
 pygame.init()
 
 all_sprite_group = pygame.sprite.Group()
-
-player = Player(BLUE, 16, 16, screen.get_width()/2, 400)
-all_sprite_group.add(player)
-
 wall_group = pygame.sprite.Group()
 
 clock = pygame.time.Clock()
@@ -52,6 +48,10 @@ def draw_map():
 draw_map()
 
 
+player = Player(BLUE, 16, 16, 100, 200)
+all_sprite_group.add(player)
+
+
 def main():
     done = False
     while not done:
@@ -73,11 +73,21 @@ def main():
                 if event.key == pygame.K_d:
                     player.right_pressed = False
 
-        # if player.rect.y > 480:
-        #     player.y_momentum = -player.y_momentum
-        #     player.bounce += 1
-        # else:
-        #     player.y_momentum += 0.2
+        userInput = pygame.key.get_pressed()
+
+        if player.jumping is False and userInput[pygame.K_SPACE]:
+            player.jumping = True
+        if player.jumping is True:
+            player.rect.y -= player.velY
+            player.velY -= 1
+            if player.velY < -20:
+                player.jumping = False
+                player.velY = 20
+
+        player_collision = pygame.sprite.spritecollideany(player, wall_group)
+        
+
+
 
         all_sprite_group.update()
         screen.fill(WHITE)
