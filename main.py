@@ -85,8 +85,6 @@ def main():
                 player.velY = 20
 
         player_collision = pygame.sprite.spritecollideany(player, wall_group)
-        
-
 
 
         all_sprite_group.update()

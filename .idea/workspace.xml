@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="14550166-c6af-4cff-a525-ee5295ff8fc7" name="Default Changelist" comment="" />
+    <list default="true" id="14550166-c6af-4cff-a525-ee5295ff8fc7" name="Default Changelist" comment="Update to the project&#10;- Added jumping mechanic&#10;- Working on collisions (Not working)" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -68,25 +68,29 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1617273332589" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1617273329111">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1620634219697">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1617273329111" />
-    <state width="274" height="665" key="GridCell.Tab.0.bottom" timestamp="1620377159746">
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1620634219697" />
+    <state width="274" height="665" key="GridCell.Tab.0.bottom" timestamp="1620378212456">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="274" height="665" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1620377159746" />
-    <state width="274" height="665" key="GridCell.Tab.0.center" timestamp="1620377159746">
+    <state width="274" height="665" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1620378212456" />
+    <state width="274" height="665" key="GridCell.Tab.0.center" timestamp="1620378212455">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="274" height="665" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1620377159746" />
-    <state width="274" height="665" key="GridCell.Tab.0.left" timestamp="1620377159746">
+    <state width="274" height="665" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1620378212455" />
+    <state width="274" height="665" key="GridCell.Tab.0.left" timestamp="1620378212455">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="274" height="665" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1620377159746" />
-    <state width="274" height="665" key="GridCell.Tab.0.right" timestamp="1620377159746">
+    <state width="274" height="665" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1620378212455" />
+    <state width="274" height="665" key="GridCell.Tab.0.right" timestamp="1620378212455">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="274" height="665" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1620377159746" />
+    <state width="274" height="665" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1620378212455" />
+    <state x="577" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1620377890637">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="577" y="322" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1620377890637" />
   </component>
 </project>
