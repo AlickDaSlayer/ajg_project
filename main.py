@@ -48,14 +48,9 @@ def draw_map():
 draw_map()
 
 
-player = Player(BLUE, 16, 16, 100, 200)
+player = Player(BLUE, 16, 16, 100, 200, wall_group)
 all_sprite_group.add(player)
 
-walls = []
-
-walls.extend(wall_group.sprites())
-print(walls)
-print(len(walls))
 
 def main():
     done = False
@@ -88,12 +83,6 @@ def main():
             if player.velY < -20:
                 player.jumping = False
                 player.velY = 20
-
-        player_collision = pygame.sprite.spritecollide(player, wall_group, False)
-        print(len(player_collision))
-        for x in player_collision:
-            if x.rect.y =
-
 
         all_sprite_group.update()
         screen.fill(WHITE)

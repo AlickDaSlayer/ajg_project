@@ -1,7 +1,8 @@
 import pygame
 
+
 class Player(pygame.sprite.Sprite):
-    def __init__(self, colour, width, height, x, y):
+    def __init__(self, colour, width, height, x, y, walls):
         super().__init__()
         self.image = pygame.Surface([width, height])
         self.image.fill(colour)
@@ -15,7 +16,7 @@ class Player(pygame.sprite.Sprite):
         self.velY = 20
         self.velX = 0
         self.momentum = 5
-        self.bounce = 0
+        self.walls = walls
 
     def update(self):
         self.velX = 0
@@ -24,8 +25,11 @@ class Player(pygame.sprite.Sprite):
         if self.right_pressed and not self.left_pressed:
             self.velX = 5
 
-        if self.rect.y > 464:
-            self.rect.y = 460
+
+        player_collision = pygame.sprite.spritecollide(self, self.walls, False)
+        for x in player_collision:
+            if self.rect.y > x.rect.y-20:
+                self.rect.y = x.rect.y-20
 
         self.rect.x += self.velX
         self.rect.y += self.momentum
