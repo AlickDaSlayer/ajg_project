@@ -41,12 +41,12 @@ def draw_map():
     for row in map:
         for col in row:
             if col == 1:
-                grass_wall = Wall("assets/grass.png", 16, 16, x, y, 0, 0)
+                grass_wall = Wall("assets/grass.png", 16, 16, x, y)
                 screen.blit(grass_wall.image, [grass_wall.rect.x, grass_wall.rect.y])
                 all_sprite_group.add(grass_wall)
                 wall_group.add(grass_wall)
             if col == 2:
-                dirt_wall = Wall("assets/dirt.png", 16, 16, x, y, 0, 0)
+                dirt_wall = Wall("assets/dirt.png", 16, 16, x, y)
                 screen.blit(dirt_wall.image, [dirt_wall.rect.x, dirt_wall.rect.y])
                 all_sprite_group.add(dirt_wall)
                 wall_group.add(dirt_wall)
@@ -70,27 +70,21 @@ def main():
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_a:
-                    player.left_pressed = True
-                if event.key == pygame.K_d:
-                    player.right_pressed = True
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_a:
-                    player.left_pressed = False
-                if event.key == pygame.K_d:
-                    player.right_pressed = False
+        
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_a]:
+            player.move(-1)
+            for all in wall_group:
+                all.rect.x += 1
+
+        if keys[pygame.K_d]:
+            player.move(1)
+            for what in wall_group:
+                what.rect.x -= 1
 
         player.rect.y += player.momentum
 
-        player.scroll[0] = 1
-        for j in wall_group:
-            j.scroll_x = player.scroll[0]
-            j.scroll_y = player.scroll[1]
-
-        user_input = pygame.key.get_pressed()
-
-        if player.jumping is False and user_input[pygame.K_SPACE]:
+        if player.jumping is False and keys[pygame.K_SPACE]:
             player.jumping = True
         if player.jumping is True:
             player.rect.y -= player.velY
@@ -113,7 +107,7 @@ def main():
 
         pygame.display.flip()
 
-        clock.tick(60)
+        clock.tick(120)
 
 
 if __name__ == "__main__":
