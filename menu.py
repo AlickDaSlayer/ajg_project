@@ -12,7 +12,7 @@ def draw_text(text, font, colour, x, y):
 
 def menu():
     while True:
-        screen.fill(LILAC)
+        screen.fill(DARKBLUE)
         draw_text("Main Menu", font3, GREY, 131, 95)
         draw_text("Main Menu", font3, WHITE, 125, 100)
 

@@ -1,3 +1,5 @@
+from ast import Delete
+from cmath import rect
 import pygame
 from pygame.locals import *
 import sys
@@ -13,6 +15,7 @@ GREY = (70, 67, 74)
 WHITE = (255, 255, 255)
 LILAC = (169, 126, 230)
 PURPLE = (105, 39, 196)
+DARKBLUE = (22, 57, 110)
 
 pygame.init()
 
@@ -30,7 +33,7 @@ wall_group = pygame.sprite.Group()
 
 clock = pygame.time.Clock()
 
-player = Player(PURPLE, 16, 16, 100, 200, wall_group)
+player = Player(PURPLE, 16, 16, 100, 50, wall_group)
 all_sprite_group.add(player)
 
 
@@ -84,25 +87,24 @@ def main():
 
         player.rect.y += player.momentum
 
-        if player.jumping is False and keys[pygame.K_SPACE]:
-            player.jumping = True
-        if player.jumping is True:
-            player.rect.y -= player.velY
-            player.velY -= 1
-            if player.velY < -20:
-                player.jumping = False
-                player.velY = 20
+        # if player.jumping is False and keys[pygame.K_SPACE]:
+        #     player.jumping = True
+        # if player.jumping is True:
+        #     player.rect.y -= player.velY
+        #     player.velY -= 1
+        #     if player.velY < -20:
+        #         player.jumping = False
+        #         player.velY = 20
 
         player_collision = pygame.sprite.spritecollide(player, wall_group, False)
         for x in player_collision:
             if player.rect.bottom > x.rect.top:
-               player.rect.bottom = x.rect.top
-               print()
-            if player.rect.top > x.rect.bottom:
-               player.rect.top = x.rect.bottom
+                player.rect.bottom = x.rect.top
+            if player.rect.top == x.rect.bottom:
+               x.kill()
 
         all_sprite_group.update()
-        screen.fill(LILAC)
+        screen.fill(DARKBLUE)
         all_sprite_group.draw(screen)
 
         pygame.display.flip()

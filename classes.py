@@ -13,7 +13,7 @@ class Player(pygame.sprite.Sprite):
         self.jumping = False
         self.velY = 20
         self.velX = 0
-        self.momentum = 7
+        self.momentum = 3
         self.walls = walls
 
     def move(self, val1):
@@ -41,3 +41,8 @@ class Wall(pygame.sprite.Sprite):
 
     def update(self):
         pass
+
+    def delete(self):
+        self.kill() 
+    
+
