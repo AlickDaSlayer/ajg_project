@@ -99,6 +99,14 @@ def main():
                 player.jumping = False
                 player.velY = 20
 
+        player_collision = pygame.sprite.spritecollide(player, wall_group, False)
+        for x in player_collision:
+            if player.rect.bottom > x.rect.top:
+               player.rect.bottom = x.rect.top
+               print()
+            if player.rect.top > x.rect.bottom:
+               player.rect.top = x.rect.bottom
+
         all_sprite_group.update()
         screen.fill(LILAC)
         all_sprite_group.draw(screen)

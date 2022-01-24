@@ -22,19 +22,22 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.velX = 0
         if self.left_pressed and not self.right_pressed:
-            self.velX = -5
+            self.velX = -3
         if self.right_pressed and not self.left_pressed:
-            self.velX = 5
+            self.velX = 3
 
-        player_collision = pygame.sprite.spritecollide(self, self.walls, False)
-        for x in player_collision:
-            if self.rect.bottom > x.rect.top:
-                self.rect.bottom = x.rect.top
+        #player_collision = pygame.sprite.spritecollide(self, self.walls, False)
+        #for x in player_collision:
+            #if self.rect.bottom > x.rect.top:
+              # self.rect.bottom = x.rect.top
 
         self.rect.x += self.velX
         # Background scrolling
         self.rect.x -= self.scroll[0]
         self.rect.y -= self.scroll[1]
+    
+    def delete(self):
+        self.kill()
 
 
 class Wall(pygame.sprite.Sprite):
