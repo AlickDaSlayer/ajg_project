@@ -11,10 +11,11 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         self.jumping = False
-        self.velY = 20
+        self.velY = 13
         self.velX = 0
-        self.momentum = 3
+        self.momentum = 5
         self.walls = walls
+        self.ground = False
 
     def move(self, val1):
         self.rect.x += val1 

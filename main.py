@@ -33,7 +33,8 @@ wall_group = pygame.sprite.Group()
 
 clock = pygame.time.Clock()
 
-player = Player(PURPLE, 16, 16, 100, 50, wall_group)
+player = Player(PURPLE, 16, 16, 384, 200, wall_group)
+player_group = pygame.sprite.pygame.sprite.GroupSingle(player)
 all_sprite_group.add(player)
 
 
@@ -76,32 +77,35 @@ def main():
         
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a]:
-            player.move(-1)
             for all in wall_group:
                 all.rect.x += 1
 
         if keys[pygame.K_d]:
-            player.move(1)
             for what in wall_group:
                 what.rect.x -= 1
 
         player.rect.y += player.momentum
 
-        # if player.jumping is False and keys[pygame.K_SPACE]:
-        #     player.jumping = True
-        # if player.jumping is True:
-        #     player.rect.y -= player.velY
-        #     player.velY -= 1
-        #     if player.velY < -20:
-        #         player.jumping = False
-        #         player.velY = 20
+        if player.jumping is False and keys[pygame.K_SPACE]:
+            player.jumping = True
+        if player.jumping is True:
+            player.momentum = 0
+            player.rect.y -= player.velY
+            player.velY -= 1
+            if player.velY < -13:
+                player.jumping = False
+                player.velY = 13
+                player.momentum = 5
+
 
         player_collision = pygame.sprite.spritecollide(player, wall_group, False)
-        for x in player_collision:
-            if player.rect.bottom > x.rect.top:
+        collision_condition = pygame.sprite.pygame.sprite.groupcollide(player_group, wall_group, False, False)
+
+        for x in player_collision: 
+            if player.rect.top < x.rect.bottom:
+                player.rect.top = x.rect.bottom
+            if player.rect.bottom > x.rect.top: 
                 player.rect.bottom = x.rect.top
-            if player.rect.top == x.rect.bottom:
-               x.kill()
 
         all_sprite_group.update()
         screen.fill(DARKBLUE)
