@@ -1,5 +1,6 @@
 from ast import Delete
 from cmath import rect
+from queue import Empty
 import pygame
 from pygame.locals import *
 import sys
@@ -33,7 +34,7 @@ wall_group = pygame.sprite.Group()
 
 clock = pygame.time.Clock()
 
-player = Player(PURPLE, 16, 16, 384, 200, wall_group)
+player = Player(PURPLE, 16, 16, 384, 200)
 player_group = pygame.sprite.pygame.sprite.GroupSingle(player)
 all_sprite_group.add(player)
 
@@ -77,12 +78,14 @@ def main():
         
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a]:
+            player.move(-2)
             for all in wall_group:
-                all.rect.x += 1
+                all.rect.x += 2
 
         if keys[pygame.K_d]:
+            player.move(2)
             for what in wall_group:
-                what.rect.x -= 1
+                what.rect.x -= 2
 
         player.rect.y += player.momentum
 
@@ -101,9 +104,18 @@ def main():
         player_collision = pygame.sprite.spritecollide(player, wall_group, False)
         collision_condition = pygame.sprite.pygame.sprite.groupcollide(player_group, wall_group, False, False)
 
+        # for wall in wall_group:
+        #     wall_collision = pygame.sprite.pygame.sprite.collide_mask(player.mask, wall.mask)
+        #     if wall_collision == None:
+        #         print("no collision")
+        #         player.rect.y += player.momentum
         for x in player_collision: 
             if player.rect.top < x.rect.bottom:
                 player.rect.top = x.rect.bottom
+            #if player.rect.left < x.rect.right:
+            #    player.rect.left = x.rect.right
+            #if player.rect.right > x.rect.left:
+            #    player.rect.right = x.rect.left
             if player.rect.bottom > x.rect.top: 
                 player.rect.bottom = x.rect.top
 

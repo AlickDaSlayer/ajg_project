@@ -2,7 +2,7 @@ import pygame
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, colour, width, height, x, y, walls):
+    def __init__(self, colour, width, height, x, y):
         super().__init__()
         self.image = pygame.Surface([width, height])
         self.image.fill(colour)
@@ -10,11 +10,12 @@ class Player(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.rect.x = x
         self.rect.y = y
+        # jumping
         self.jumping = False
+        self.falling = False 
         self.velY = 13
         self.velX = 0
         self.momentum = 5
-        self.walls = walls
         self.ground = False
 
     def move(self, val1):
