@@ -1,4 +1,5 @@
 import pygame
+import math
 
 
 class Player(pygame.sprite.Sprite):
@@ -7,26 +8,38 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.Surface([width, height])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
-        self.mask = pygame.mask.from_surface(self.image)
         self.rect.x = x
         self.rect.y = y
         # jumping
-        self.jumping = False
-        self.in_air = True
-        self.falling = False 
-        self.velY = 13
-        self.velX = 0
-        self.momentum = 5
-        self.ground = False
+        self.jumping = [0, 0]
+        self.is_jumping = False
+        self.falling = [0, 0]
+        self.is_falling = False
+        self.vel = [0, 0]
+        self.acc = [0, 0]
+
+    def gravity(self):
+        pass
 
     def move(self, val1):
-        self.rect.x += val1 
+        self.rect.x += val1
+
+    def collided(self, sprite):
+        self.rect.colliderect(sprite)
 
 
     def update(self):
-        self.velX = 0
+        pass
+        # keys = pygame.key.get_pressed()
+        # if keys[pygame.K_a]:
+        #     player.move(-2)
+        #     for all in wall_group:
+        #         all.rect.x += 2
 
-        self.rect.x += self.velX
+        # if keys[pygame.K_d]:
+        #     player.move(2)
+        #     for what in wall_group:
+        #         what.rect.x -= 2
     
     def delete(self):
         self.kill()
@@ -38,7 +51,6 @@ class Wall(pygame.sprite.Sprite):
         self.surface = pygame.Surface([width, height])
         self.image = pygame.image.load(sprite)
         self.rect = self.surface.get_rect()
-        self.mask = pygame.mask.from_surface(self.image)
         self.rect.x = x
         self.rect.y = y
 

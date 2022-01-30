@@ -76,50 +76,7 @@ def main():
                     pygame.quit()
                     sys.exit()
         
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_a]:
-            player.move(-2)
-            for all in wall_group:
-                all.rect.x += 2
 
-        if keys[pygame.K_d]:
-            player.move(2)
-            for what in wall_group:
-                what.rect.x -= 2
-
-        player.rect.y += player.momentum
-
-        if player.jumping is False and keys[pygame.K_SPACE] and player.in_air is False:
-            player.jumping = True
-        if player.jumping is True:
-            player.momentum = 0
-            player.rect.y -= player.velY
-            player.velY -= 1
-            if player.velY < -13:
-                player.jumping = False
-                player.in_air = True
-                player.velY = 13
-                player.momentum = 5
-
-
-        player_collision = pygame.sprite.spritecollide(player, wall_group, False)
-        collision_condition = pygame.sprite.pygame.sprite.groupcollide(player_group, wall_group, False, False)
-
-        # for wall in wall_group:
-        #     wall_collision = pygame.sprite.pygame.sprite.collide_mask(player.mask, wall.mask)
-        #     if wall_collision == None:
-        #         print("no collision")
-        #         player.rect.y += player.momentum
-        for x in player_collision: 
-            if player.rect.top < x.rect.bottom:
-                player.rect.top = x.rect.bottom
-                player.in_air = False
-            #if player.rect.left < x.rect.right:
-            #    player.rect.left = x.rect.right
-            #if player.rect.right > x.rect.left:
-            #    player.rect.right = x.rect.left
-            if player.rect.bottom > x.rect.top: 
-                player.rect.bottom = x.rect.top
 
         all_sprite_group.update()
         screen.fill(DARKBLUE)
