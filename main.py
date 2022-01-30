@@ -89,7 +89,7 @@ def main():
 
         player.rect.y += player.momentum
 
-        if player.jumping is False and keys[pygame.K_SPACE]:
+        if player.jumping is False and keys[pygame.K_SPACE] and player.in_air is False:
             player.jumping = True
         if player.jumping is True:
             player.momentum = 0
@@ -97,6 +97,7 @@ def main():
             player.velY -= 1
             if player.velY < -13:
                 player.jumping = False
+                player.in_air = True
                 player.velY = 13
                 player.momentum = 5
 
@@ -112,6 +113,7 @@ def main():
         for x in player_collision: 
             if player.rect.top < x.rect.bottom:
                 player.rect.top = x.rect.bottom
+                player.in_air = False
             #if player.rect.left < x.rect.right:
             #    player.rect.left = x.rect.right
             #if player.rect.right > x.rect.left:

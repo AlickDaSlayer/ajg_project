@@ -12,6 +12,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.y = y
         # jumping
         self.jumping = False
+        self.in_air = True
         self.falling = False 
         self.velY = 13
         self.velX = 0
@@ -43,6 +44,9 @@ class Wall(pygame.sprite.Sprite):
 
     def update(self):
         pass
+
+    def move(self, val1):
+        self.rect.x += val1 
 
     def delete(self):
         self.kill() 
