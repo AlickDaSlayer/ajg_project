@@ -30,7 +30,6 @@ screen = pygame.display.set_mode(display)           # Create window
 pygame.display.set_caption("Project")               # Title
 
 all_sprite_group = pygame.sprite.Group()
-wall_group = pygame.sprite.Group()
 
 clock = pygame.time.Clock()
 
@@ -84,7 +83,7 @@ def main():
 
         pygame.display.flip()
 
-        clock.tick(120)
+        clock.tick(144)
 
 
 if __name__ == "__main__":
