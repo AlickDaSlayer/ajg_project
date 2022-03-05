@@ -11,16 +11,19 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.movingleft = False 
+        self.movingright = True 
         # jumping
-        self.jumping = [0, 0]
+        self.jumping = [0, 0] # y value of jumping
         self.is_jumping = False
-        self.falling = [0, 0]
+        self.falling = [0, 0] # - self.falling[1] => speed of falling
         self.is_falling = False
         self.vel = [0, 0]
         self.acc = [0, 0.5]
         self.step = [1, 0]
         self.gravity_acc = [0, 0]
         self.jump_dec = [0, 0]
+        self.doublejump = False
 
     def gravity(self):
         # Gravitational acceleration is by default 0
@@ -80,7 +83,7 @@ class Player(pygame.sprite.Sprite):
                     self.rect.bottom = wall.rect.top
                     self.is_falling = False
                     self.falling[1] = 0
-                    self.jumping[1] = -3.5
+                    self.jumping[1] = -4.5
 
 
 
@@ -89,19 +92,24 @@ class Player(pygame.sprite.Sprite):
         # Move the player if relevant key press detected.
         keys = pygame.key.get_pressed()
         # pygame.sprite.groupcollide(wall_group, player_group, True, False)
-        # Player 1
+        # Player 
         if keys[pygame.K_a]:
             self.move("left")
             self.is_jumping = True
+            self.movingleft = True
         if keys[pygame.K_d]:
             self.move("right")
             self.is_jumping = True
+            self.movingright = True
         if keys[pygame.K_SPACE]:
             self.jump()
             self.move("up")
+            self.doublejump = True
         else:
             # If the player no longer presses on the key, sets the jumping speed to 0
             self.jumping[1] = 0
+            self.movingleft = False
+            self.movingright = False
 
         self.gravity()
         self.jump()
@@ -111,19 +119,30 @@ class Player(pygame.sprite.Sprite):
 
 
 class Wall(pygame.sprite.Sprite):
-    def __init__(self, sprite, width, height, x, y):
+    def __init__(self, sprite, width, height, x, y, player):
         super().__init__()
         self.surface = pygame.Surface([width, height])
         self.image = pygame.image.load(sprite)
         self.rect = self.surface.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.player = player
+
+    def move(self, direction):
+        if direction == "left" and self.player.movingleft == True:
+            self.rect.x += -1
+        if direction == "right" and self.player.movingright == True:
+            self.rect.x += 1
+
 
     def update(self):
-        pass
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_a]:
+            self.move("left")
+        if keys[pygame.K_d]:
+            self.move("right")
+       
 
-    def move(self, val1):
-        self.rect.x += val1 
 
     def delete(self):
         self.kill() 

@@ -33,7 +33,7 @@ all_sprite_group = pygame.sprite.Group()
 
 clock = pygame.time.Clock()
 
-player = Player(PURPLE, 16, 16, 384, 200)
+player = Player(PURPLE, 16, 16, (display[0]/2), (display[1]/2))
 player_group = pygame.sprite.pygame.sprite.GroupSingle(player)
 all_sprite_group.add(player)
 
@@ -45,12 +45,12 @@ def draw_map():
     for row in map:
         for col in row:
             if col == 1:
-                grass_wall = Wall("assets/grass.png", 16, 16, x, y)
+                grass_wall = Wall("assets/grass.png", 16, 16, x, y, player)
                 screen.blit(grass_wall.image, [grass_wall.rect.x, grass_wall.rect.y])
                 all_sprite_group.add(grass_wall)
                 wall_group.add(grass_wall)
             if col == 2:
-                dirt_wall = Wall("assets/dirt.png", 16, 16, x, y)
+                dirt_wall = Wall("assets/dirt.png", 16, 16, x, y, player)
                 screen.blit(dirt_wall.image, [dirt_wall.rect.x, dirt_wall.rect.y])
                 all_sprite_group.add(dirt_wall)
                 wall_group.add(dirt_wall)
