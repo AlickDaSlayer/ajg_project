@@ -18,7 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.is_falling = False
         self.vel = [0, 0]
         self.acc = [0, 0.5]
-        self.step = [1, 0]
+        self.step = [2, 0]
         self.gravity_acc = [0, 0]
         self.jump_dec = [0, 0]
         self.doublejump = False
@@ -29,7 +29,7 @@ class Player(pygame.sprite.Sprite):
         # If the speed of falling doesn't exceed 10 and the player isn't in the process of jumping upwards
         if self.falling[1] <= 10 and self.jumping[1] >= 0 and self.is_falling:
             # Sets the acceleration to a value
-            self.gravity_acc = [0, 0.1]
+            self.gravity_acc = [0, 0.5]
         if self.is_falling:
             # Increases the speed of falling when in air
             self.falling[1] += self.gravity_acc[1]
@@ -42,7 +42,7 @@ class Player(pygame.sprite.Sprite):
         # If the player is jumping and the player is going upwards
         if self.is_jumping and self.jumping[1] <= 0:
             # A value is assigned to deceleration
-            self.jump_dec = [0, 0.05]
+            self.jump_dec = [0, 0.1]
 
         if self.falling[1] >= 0:
             self.is_falling = True
@@ -81,7 +81,7 @@ class Player(pygame.sprite.Sprite):
                     self.rect.bottom = wall.rect.top
                     self.is_falling = False
                     self.falling[1] = 0
-                    self.jumping[1] = -4.5
+                    self.jumping[1] = -6.5
 
 
 
