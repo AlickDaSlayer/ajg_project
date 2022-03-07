@@ -11,8 +11,6 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.movingleft = False 
-        self.movingright = True 
         # jumping
         self.jumping = [0, 0] # y value of jumping
         self.is_jumping = False
@@ -96,11 +94,9 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_a]:
             self.move("left")
             self.is_jumping = True
-            self.movingleft = True
         if keys[pygame.K_d]:
             self.move("right")
             self.is_jumping = True
-            self.movingright = True
         if keys[pygame.K_SPACE]:
             self.jump()
             self.move("up")
@@ -108,8 +104,6 @@ class Player(pygame.sprite.Sprite):
         else:
             # If the player no longer presses on the key, sets the jumping speed to 0
             self.jumping[1] = 0
-            self.movingleft = False
-            self.movingright = False
 
         self.gravity()
         self.jump()
@@ -119,27 +113,26 @@ class Player(pygame.sprite.Sprite):
 
 
 class Wall(pygame.sprite.Sprite):
-    def __init__(self, sprite, width, height, x, y, player):
+    def __init__(self, sprite, width, height, x, y):
         super().__init__()
         self.surface = pygame.Surface([width, height])
         self.image = pygame.image.load(sprite)
         self.rect = self.surface.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.player = player
 
     def move(self, direction):
-        if direction == "left" and self.player.movingleft == True:
+        if direction == "left":
             self.rect.x += -1
-        if direction == "right" and self.player.movingright == True:
+        if direction == "right":
             self.rect.x += 1
 
 
     def update(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_a]:
+        if keys[pygame.K_RIGHT]:
             self.move("left")
-        if keys[pygame.K_d]:
+        if keys[pygame.K_LEFT]:
             self.move("right")
        
 

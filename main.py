@@ -45,12 +45,12 @@ def draw_map():
     for row in map:
         for col in row:
             if col == 1:
-                grass_wall = Wall("assets/grass.png", 16, 16, x, y, player)
+                grass_wall = Wall("assets/grass.png", 16, 16, x, y)
                 screen.blit(grass_wall.image, [grass_wall.rect.x, grass_wall.rect.y])
                 all_sprite_group.add(grass_wall)
                 wall_group.add(grass_wall)
             if col == 2:
-                dirt_wall = Wall("assets/dirt.png", 16, 16, x, y, player)
+                dirt_wall = Wall("assets/dirt.png", 16, 16, x, y)
                 screen.blit(dirt_wall.image, [dirt_wall.rect.x, dirt_wall.rect.y])
                 all_sprite_group.add(dirt_wall)
                 wall_group.add(dirt_wall)
