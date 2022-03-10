@@ -122,18 +122,20 @@ class Wall(pygame.sprite.Sprite):
         self.rect.y = y
 
     def move(self, direction):
-        if direction == "left":
-            self.rect.x += -1
-        if direction == "right":
-            self.rect.x += 1
+        pass
+#        if direction == "left":
+ #           self.rect.x += -1
+ #       if direction == "right":
+ #           self.rect.x += 1
 
 
     def update(self):
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_RIGHT]:
-            self.move("left")
-        if keys[pygame.K_LEFT]:
-            self.move("right")
+        pass
+ #       keys = pygame.key.get_pressed()
+ #       if keys[pygame.K_RIGHT]:
+ #           self.move("left")
+ #       if keys[pygame.K_LEFT]:
+ #           self.move("right")
        
 
 

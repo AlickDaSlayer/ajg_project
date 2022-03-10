@@ -20,6 +20,11 @@ DARKBLUE = (22, 57, 110)
 
 pygame.init()
 
+def draw_timer(screen, x, y, output):
+    font = pygame.font.Font(None, 36) #Choose the font for the text
+    text = font.render(output, 1, WHITE) #Create the text
+    screen.blit(text, (x, y)) #Draw the text on the screen
+
 font1 = pygame.font.SysFont(None, 150)
 font2 = pygame.font.SysFont(None, 100)
 font3 = pygame.font.SysFont(None, 160)
@@ -30,6 +35,8 @@ screen = pygame.display.set_mode(display)           # Create window
 pygame.display.set_caption("Project")               # Title
 
 all_sprite_group = pygame.sprite.Group()
+
+frame_rate = 60
 
 clock = pygame.time.Clock()
 
@@ -61,8 +68,10 @@ def draw_map():
 
 draw_map()
 
-
 def main():
+
+    frame_count = 0
+
     done = False
     while not done:
         for event in pygame.event.get():
@@ -75,15 +84,24 @@ def main():
                     pygame.quit()
                     sys.exit()
         
-
+        ## - Logic for game timer 
+        total_seconds = frame_count // frame_rate
+        minutes = total_seconds // 60
+        seconds = total_seconds % 60
+        output_string = "Time: {0:02}:{1:02}".format(minutes, seconds)
 
         all_sprite_group.update()
         screen.fill(DARKBLUE)
         all_sprite_group.draw(screen)
 
-        pygame.display.flip()
+        # - Timer drawn on screen
+        draw_timer(screen, 350, 20, output_string)
 
-        clock.tick(200)
+        frame_count += 1    # - Frame count increases every iteration of the game loop
+        
+        clock.tick(frame_rate)
+
+        pygame.display.flip()
 
 
 if __name__ == "__main__":
