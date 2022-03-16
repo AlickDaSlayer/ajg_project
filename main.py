@@ -21,9 +21,9 @@ DARKBLUE = (22, 57, 110)
 pygame.init()
 
 def draw_timer(screen, x, y, output):
-    font = pygame.font.Font(None, 36) #Choose the font for the text
-    text = font.render(output, 1, WHITE) #Create the text
-    screen.blit(text, (x, y)) #Draw the text on the screen
+    font = pygame.font.Font(None, 30) # Choose the font for the text
+    text = font.render(output, 1, WHITE) # Create the text
+    screen.blit(text, (x, y)) # Draw the text on the screen
 
 font1 = pygame.font.SysFont(None, 150)
 font2 = pygame.font.SysFont(None, 100)
@@ -95,9 +95,9 @@ def main():
         all_sprite_group.draw(screen)
 
         # - Timer drawn on screen
-        draw_timer(screen, 350, 20, output_string)
+        draw_timer(screen, 350, 30, output_string)
 
-        frame_count += 1    # - Frame count increases every iteration of the game loop
+        frame_count += 1    # - Frame count increases by one every iteration of the game loop
         
         clock.tick(frame_rate)
 
