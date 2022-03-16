@@ -4,8 +4,8 @@ import math
 wall_group = pygame.sprite.Group()
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, colour, width, height, x, y):
-        super().__init__()
+    def __init__(self, colour, width, height, x, y, group):
+        super().__init__(group)
         self.image = pygame.Surface([width, height])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
@@ -113,8 +113,8 @@ class Player(pygame.sprite.Sprite):
 
 
 class Wall(pygame.sprite.Sprite):
-    def __init__(self, sprite, width, height, x, y):
-        super().__init__()
+    def __init__(self, sprite, width, height, x, y, group):
+        super().__init__(group)
         self.surface = pygame.Surface([width, height])
         self.image = pygame.image.load(sprite)
         self.rect = self.surface.get_rect()

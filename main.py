@@ -11,6 +11,18 @@ from maps import *
 from menu import *
 
 
+class CameraGroup(pygame.sprite.Group):
+    def __init__(self):
+        super().__init__()
+        self.display_surface = pygame.display.get_surface()
+        
+        # camera offset
+        self.offset = pygame.math.Vector2() 
+
+    def custom_draw(self, player):
+        pass
+
+
 BLACK = (0, 0, 0)
 GREY = (70, 67, 74)
 WHITE = (255, 255, 255)
@@ -24,25 +36,29 @@ def draw_timer(screen, x, y, output):
     font = pygame.font.Font(None, 30) # Choose the font for the text
     text = font.render(output, 1, WHITE) # Create the text
     screen.blit(text, (x, y)) # Draw the text on the screen
+#endfunction
 
 font1 = pygame.font.SysFont(None, 150)
 font2 = pygame.font.SysFont(None, 100)
 font3 = pygame.font.SysFont(None, 160)
 
 
+camera_group = CameraGroup() # Initialise camera group
+
+
 display = (800, 480)                                # Set screen width,height
 screen = pygame.display.set_mode(display)           # Create window
 pygame.display.set_caption("Project")               # Title
 
-all_sprite_group = pygame.sprite.Group()
+#all_sprite_group = pygame.sprite.Group()
 
 frame_rate = 60
 
 clock = pygame.time.Clock()
 
-player = Player(PURPLE, 16, 16, (display[0]/2), (display[1]/2))
+player = Player(PURPLE, 16, 16, (display[0]/2), (display[1]/2), camera_group)
 player_group = pygame.sprite.pygame.sprite.GroupSingle(player)
-all_sprite_group.add(player)
+#all_sprite_group.add(player)
 
 
 def draw_map():
@@ -52,14 +68,14 @@ def draw_map():
     for row in map:
         for col in row:
             if col == 1:
-                grass_wall = Wall("assets/grass.png", 16, 16, x, y)
+                grass_wall = Wall("assets/grass.png", 16, 16, x, y, camera_group)
                 screen.blit(grass_wall.image, [grass_wall.rect.x, grass_wall.rect.y])
-                all_sprite_group.add(grass_wall)
+                #all_sprite_group.add(grass_wall)
                 wall_group.add(grass_wall)
             if col == 2:
-                dirt_wall = Wall("assets/dirt.png", 16, 16, x, y)
+                dirt_wall = Wall("assets/dirt.png", 16, 16, x, y, camera_group)
                 screen.blit(dirt_wall.image, [dirt_wall.rect.x, dirt_wall.rect.y])
-                all_sprite_group.add(dirt_wall)
+                #all_sprite_group.add(dirt_wall)
                 wall_group.add(dirt_wall)
             x += 16
         x = 0
@@ -90,9 +106,11 @@ def main():
         seconds = total_seconds % 60
         output_string = "Time: {0:02}:{1:02}".format(minutes, seconds)
 
-        all_sprite_group.update()
+        #all_sprite_group.update()
+        camera_group.update()
         screen.fill(DARKBLUE)
-        all_sprite_group.draw(screen)
+        #all_sprite_group.draw(screen)
+        camera_group.draw(screen)
 
         # - Timer drawn on screen
         draw_timer(screen, 350, 30, output_string)
