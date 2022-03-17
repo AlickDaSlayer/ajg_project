@@ -68,10 +68,6 @@ frame_rate = 60
 
 clock = pygame.time.Clock()
 
-player = Player(PURPLE, 16, 16, (display[0]/2), (display[1]/2), camera_group)
-player_group = pygame.sprite.pygame.sprite.GroupSingle(player)
-#all_sprite_group.add(player)
-
 
 def draw_map():
     x = 0
@@ -93,6 +89,9 @@ def draw_map():
         x = 0
         y += 16
 
+
+player = Player(PURPLE, 16, 16, 480, 448, camera_group)
+player_group = pygame.sprite.pygame.sprite.GroupSingle(player)
 
 draw_map()
 

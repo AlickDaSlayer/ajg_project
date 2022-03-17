@@ -18,7 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.is_falling = False
         self.vel = [0, 0]
         self.acc = [0, 0.5]
-        self.step = [2, 0]
+        self.step = [4, 0]
         self.gravity_acc = [0, 0]
         self.jump_dec = [0, 0]
         self.doublejump = False
