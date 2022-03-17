@@ -1,3 +1,4 @@
+from cgitb import grey
 import pygame
 import math
 
@@ -22,6 +23,9 @@ class Player(pygame.sprite.Sprite):
         self.gravity_acc = [0, 0]
         self.jump_dec = [0, 0]
         self.doublejump = False
+
+    def delete(self):
+        self.kill()
 
     def gravity(self):
         # Gravitational acceleration is by default 0
@@ -108,8 +112,6 @@ class Player(pygame.sprite.Sprite):
         self.gravity()
         self.jump()
     
-    def delete(self):
-        self.kill()
 
 
 class Wall(pygame.sprite.Sprite):
@@ -121,25 +123,24 @@ class Wall(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
-    def move(self, direction):
-        pass
-#        if direction == "left":
- #           self.rect.x += -1
- #       if direction == "right":
- #           self.rect.x += 1
-
-
-    def update(self):
-        pass
- #       keys = pygame.key.get_pressed()
- #       if keys[pygame.K_RIGHT]:
- #           self.move("left")
- #       if keys[pygame.K_LEFT]:
- #           self.move("right")
-       
-
-
     def delete(self):
         self.kill() 
+
+class Fog(pygame.sprite.Sprite):
+    def __init__(self, width, height, x, y, group):
+        super().__init__(group)
+        self.image = pygame.Surface([width, height])
+        self.image.fill((179, 176, 168))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+    def update(self):
+        self.rect.x += 1
+    
+    def delete(self):
+        self.kill()
+
+
     
 

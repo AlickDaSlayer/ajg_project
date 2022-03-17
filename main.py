@@ -8,7 +8,7 @@ import random
 import math
 from classes import *
 from maps import *
-from menu import *
+from menu_page import *
 
 pygame.init()
 
@@ -62,12 +62,9 @@ font3 = pygame.font.SysFont(None, 160)
 
 camera_group = CameraGroup() # Initialise camera group
 
-#all_sprite_group = pygame.sprite.Group()
-
 frame_rate = 60
 
 clock = pygame.time.Clock()
-
 
 def draw_map():
     x = 0
@@ -90,12 +87,21 @@ def draw_map():
         y += 16
 
 
-player = Player(PURPLE, 16, 16, 480, 448, camera_group)
-player_group = pygame.sprite.pygame.sprite.GroupSingle(player)
+#player = Player(PURPLE, 16, 16, 480, 448, camera_group)
+#player_group = pygame.sprite.pygame.sprite.GroupSingle(player)
 
-draw_map()
+#draw_map()
+
+#fog = Fog(800, 860, -800, 0, camera_group)
 
 def main():
+
+    player = Player(PURPLE, 16, 16, 480, 448, camera_group)
+    player_group = pygame.sprite.pygame.sprite.GroupSingle(player)
+
+    draw_map()
+
+    fog = Fog(800, 860, -800, 0, camera_group)
 
     frame_count = 0
 
@@ -117,10 +123,18 @@ def main():
         seconds = total_seconds % 60
         output_string = "Time: {0:02}:{1:02}".format(minutes, seconds)
 
-        #all_sprite_group.update()
+        ## - Logic for fog 
+        death = pygame.sprite.collide_rect(player, fog)
+        if death == True:
+            player.delete()
+            for wall in wall_group:
+                wall.delete()
+            fog.delete()
+            done = True
+            
+
         camera_group.update()
         screen.fill(DARKBLUE)
-        #all_sprite_group.draw(screen)
         camera_group.custom_draw(player)
 
         # - Timer drawn on screen
@@ -135,6 +149,5 @@ def main():
 
 if __name__ == "__main__":
     menu()
-    pygame.quit()
-    sys.exit()
+
 

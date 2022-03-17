@@ -2,6 +2,20 @@ import pygame
 import sys
 from main import *
 
+screen = pygame.display.set_mode((800,480))
+
+clock = pygame.time.Clock()
+
+BLACK = (0, 0, 0)
+GREY = (70, 67, 74)
+WHITE = (255, 255, 255)
+LILAC = (169, 126, 230)
+PURPLE = (105, 39, 196)
+DARKBLUE = (22, 57, 110)
+
+font1 = pygame.font.SysFont(None, 150)
+font2 = pygame.font.SysFont(None, 100)
+font3 = pygame.font.SysFont(None, 160)
 
 def draw_text(text, font, colour, x, y):
     text_obj = font.render(text, 1, colour)
@@ -44,6 +58,3 @@ def menu():
 
         pygame.display.update()
         clock.tick(60)
-
-
-
