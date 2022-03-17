@@ -10,17 +10,35 @@ from classes import *
 from maps import *
 from menu import *
 
+pygame.init()
+
+display = (800, 480)                                # Set screen width,height
+screen = pygame.display.set_mode(display)           # Create window
+pygame.display.set_caption("Project")               # Title
+
 
 class CameraGroup(pygame.sprite.Group):
     def __init__(self):
         super().__init__()
         self.display_surface = pygame.display.get_surface()
-        
+
         # camera offset
-        self.offset = pygame.math.Vector2() 
+        self.offset = pygame.math.Vector2(300,100) 
+        self.half_w = self.display_surface.get_size()[0] // 2
+        self.half_h = self.display_surface.get_size()[1] // 2
+    
+    def center_target_camera(self, target):
+        self.offset.x = target.rect.centerx - self.half_w
+        self.offset.y = target.rect.centery - self.half_h
 
     def custom_draw(self, player):
-        pass
+        
+        self.center_target_camera(player)
+
+        # Iterating through all the sprites in the camera group
+        for sprite in self.sprites(): 
+            offset_pos = sprite.rect.topleft - self.offset
+            self.display_surface.blit(sprite.image, offset_pos)
 
 
 BLACK = (0, 0, 0)
@@ -30,7 +48,6 @@ LILAC = (169, 126, 230)
 PURPLE = (105, 39, 196)
 DARKBLUE = (22, 57, 110)
 
-pygame.init()
 
 def draw_timer(screen, x, y, output):
     font = pygame.font.Font(None, 30) # Choose the font for the text
@@ -44,11 +61,6 @@ font3 = pygame.font.SysFont(None, 160)
 
 
 camera_group = CameraGroup() # Initialise camera group
-
-
-display = (800, 480)                                # Set screen width,height
-screen = pygame.display.set_mode(display)           # Create window
-pygame.display.set_caption("Project")               # Title
 
 #all_sprite_group = pygame.sprite.Group()
 
@@ -110,7 +122,7 @@ def main():
         camera_group.update()
         screen.fill(DARKBLUE)
         #all_sprite_group.draw(screen)
-        camera_group.draw(screen)
+        camera_group.custom_draw(player)
 
         # - Timer drawn on screen
         draw_timer(screen, 350, 30, output_string)
