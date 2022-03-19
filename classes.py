@@ -3,6 +3,7 @@ import pygame
 import math
 
 wall_group = pygame.sprite.Group()
+portal_group = pygame.sprite.Group()
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, colour, width, height, x, y, group):
@@ -151,6 +152,16 @@ class Fog(pygame.sprite.Sprite):
     def delete(self):
         self.kill()
 
+class Portal(pygame.sprite.Sprite):
+    def __init__(self, colour, width, height, x, y, group):
+        super().__init__(group)
+        self.image = pygame.Surface([width, height])
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
 
+    def delete(self):
+        self.kill()
     
 

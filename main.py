@@ -47,6 +47,7 @@ WHITE = (255, 255, 255)
 LILAC = (169, 126, 230)
 PURPLE = (105, 39, 196)
 DARKBLUE = (22, 57, 110)
+GOLD = (252, 186, 3)
 
 
 def draw_timer(screen, x, y, output):
@@ -82,6 +83,10 @@ def draw_map(map):
                 screen.blit(dirt_wall.image, [dirt_wall.rect.x, dirt_wall.rect.y])
                 #all_sprite_group.add(dirt_wall)
                 wall_group.add(dirt_wall)
+            if col == 3:
+                portal = Portal(GOLD, 16, 16, x, y, camera_group)
+                screen.blit(portal.image, [portal.rect.x, portal.rect.y])
+                portal_group.add(portal)
             x += 16
         x = 0
         y += 16
@@ -115,7 +120,6 @@ def level1():
                     player.jump()
  
 
-
         ## - Logic for game timer 
         total_seconds = frame_count // frame_rate
         minutes = total_seconds // 60
@@ -130,7 +134,19 @@ def level1():
                 wall.delete()
             fog.delete()
             done = True 
-            
+
+        ## - Next level
+        portal_hit = pygame.sprite.spritecollide(player, portal_group, False)
+        for portal in portal_hit:
+            if player.rect.colliderect(portal):
+                player.delete()
+                for wall in wall_group:
+                    wall.delete()
+                fog.delete()
+                for x in portal_group:
+                    x.delete()
+                done = True
+
 
         camera_group.update()
         screen.fill(DARKBLUE)
@@ -144,6 +160,10 @@ def level1():
         clock.tick(frame_rate)
 
         pygame.display.flip()
+    #endwhile
+
+    level2()
+#endfunction
 
 def level2():
 
@@ -202,6 +222,8 @@ def level2():
         clock.tick(frame_rate)
 
         pygame.display.flip()
+    #endwhile
+#endfunction
 
 
 if __name__ == "__main__":
