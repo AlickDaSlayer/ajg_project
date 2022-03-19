@@ -54,7 +54,7 @@ def menu():
 
         if button_1.collidepoint((mx, my)):
             if click:
-                mainloop()
+                level1()
 
         pygame.display.update()
         clock.tick(60)

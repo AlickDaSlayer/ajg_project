@@ -66,7 +66,7 @@ frame_rate = 60
 
 clock = pygame.time.Clock()
 
-def draw_map():
+def draw_map(map):
     x = 0
     y = 0
 
@@ -87,12 +87,12 @@ def draw_map():
         y += 16
 
 
-def mainloop():
+def level1():
 
     player = Player(PURPLE, 16, 16, 480, 448, camera_group)
     player_group = pygame.sprite.pygame.sprite.GroupSingle(player)
 
-    draw_map()
+    draw_map(map1)
 
     fog = Fog("assets/fog.png", 800, 860, -800, 0, camera_group)
 
@@ -113,7 +113,65 @@ def mainloop():
                     player.space_pressed = False
                     player.can_doublejump = True
                     player.jump()
+ 
 
+
+        ## - Logic for game timer 
+        total_seconds = frame_count // frame_rate
+        minutes = total_seconds // 60
+        seconds = total_seconds % 60
+        output_string = "Time: {0:02}:{1:02}".format(minutes, seconds)
+
+        ## - Logic for fog 
+        death = pygame.sprite.collide_rect(player, fog)
+        if death == True:
+            player.delete()
+            for wall in wall_group:
+                wall.delete()
+            fog.delete()
+            done = True 
+            
+
+        camera_group.update()
+        screen.fill(DARKBLUE)
+        camera_group.custom_draw(player)
+
+        # - Timer drawn on screen
+        draw_timer(screen, 350, 30, output_string)
+
+        frame_count += 1    # - Frame count increases by one every iteration of the game loop
+        
+        clock.tick(frame_rate)
+
+        pygame.display.flip()
+
+def level2():
+
+    player = Player(PURPLE, 16, 16, 480, 448, camera_group)
+    player_group = pygame.sprite.pygame.sprite.GroupSingle(player)
+
+    draw_map(map2)
+
+    fog = Fog("assets/fog.png", 800, 860, -800, 0, camera_group)
+
+    frame_count = 0
+
+    done = False
+    while not done:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done = True
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+                if event.key == pygame.K_SPACE and player.space_pressed is True: 
+                    player.space_pressed = False
+                    player.can_doublejump = True
+                    player.jump()
+ 
 
 
         ## - Logic for game timer 
