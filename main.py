@@ -87,21 +87,14 @@ def draw_map():
         y += 16
 
 
-#player = Player(PURPLE, 16, 16, 480, 448, camera_group)
-#player_group = pygame.sprite.pygame.sprite.GroupSingle(player)
-
-#draw_map()
-
-#fog = Fog(800, 860, -800, 0, camera_group)
-
-def main():
+def mainloop():
 
     player = Player(PURPLE, 16, 16, 480, 448, camera_group)
     player_group = pygame.sprite.pygame.sprite.GroupSingle(player)
 
     draw_map()
 
-    fog = Fog(800, 860, -800, 0, camera_group)
+    fog = Fog("assets/fog.png", 800, 860, -800, 0, camera_group)
 
     frame_count = 0
 
@@ -116,7 +109,14 @@ def main():
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit()
-        
+                if event.key == pygame.K_SPACE and player.space_pressed is True: 
+                    player.space_pressed = False
+                    player.can_doublejump = True
+            # if event.type == pygame.KEYUP:
+            #     if event.key == pygame.K_ESCAPE and player.space_pressed is False:
+            #         player.can_doublejump = False
+
+
         ## - Logic for game timer 
         total_seconds = frame_count // frame_rate
         minutes = total_seconds // 60
@@ -130,7 +130,7 @@ def main():
             for wall in wall_group:
                 wall.delete()
             fog.delete()
-            done = True
+            done = True 
             
 
         camera_group.update()

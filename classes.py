@@ -22,7 +22,8 @@ class Player(pygame.sprite.Sprite):
         self.step = [4, 0]
         self.gravity_acc = [0, 0]
         self.jump_dec = [0, 0]
-        self.doublejump = False
+        self.can_doublejump = False
+        self.space_pressed = False
 
     def delete(self):
         self.kill()
@@ -34,7 +35,7 @@ class Player(pygame.sprite.Sprite):
         if self.falling[1] <= 10 and self.jumping[1] >= 0 and self.is_falling:
             # Sets the acceleration to a value
             self.gravity_acc = [0, 0.5]
-        if self.is_falling:
+        if self.is_falling and self.can_doublejump is False:
             # Increases the speed of falling when in air
             self.falling[1] += self.gravity_acc[1]
             self.move("down")
@@ -44,17 +45,21 @@ class Player(pygame.sprite.Sprite):
         # Deceleration on the upward jumping speed is by default 0
         self.jump_dec = [0, 0]
         # If the player is jumping and the player is going upwards
-        if self.is_jumping and self.jumping[1] <= 0:
+        if self.is_jumping and self.jumping[1] <= 0 and self.can_doublejump is False:
             # A value is assigned to deceleration
-            self.jump_dec = [0, 0.1]
+            self.jump_dec = [0, 0.1]   # Value which pulls the player downs as soon as it starts jumping
 
-        if self.falling[1] >= 0:
+        if self.falling[1] >= 0 and self.can_doublejump is False: # If the player is falling
             self.is_falling = True
             # Makes the player fall(calling the gravity function) if the jumping deceleration
             # is making the player to go down
-        if self.is_jumping is False:
+        if self.is_jumping is False: # If the player is not jumping
             self.is_falling = False
             self.is_jumping = True
+
+        if self.can_doublejump is True:
+            self.jumping[1] = -6.5
+            self.can_doublejump = False
 
         self.jumping[1] += self.jump_dec[1]
 
@@ -93,7 +98,6 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         # Move the player if relevant key press detected.
         keys = pygame.key.get_pressed()
-        # pygame.sprite.groupcollide(wall_group, player_group, True, False)
         # Player 
         if keys[pygame.K_a]:
             self.move("left")
@@ -101,13 +105,13 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_d]:
             self.move("right")
             self.is_jumping = True
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_SPACE] and self.can_doublejump is False:
             self.jump()
             self.move("up")
-            self.doublejump = True
+            self.space_pressed = True
         else:
             # If the player no longer presses on the key, sets the jumping speed to 0
-            self.jumping[1] = 0
+            self.jumping[1] = 0  
 
         self.gravity()
         self.jump()
@@ -127,11 +131,11 @@ class Wall(pygame.sprite.Sprite):
         self.kill() 
 
 class Fog(pygame.sprite.Sprite):
-    def __init__(self, width, height, x, y, group):
+    def __init__(self, sprite, width, height, x, y, group):
         super().__init__(group)
-        self.image = pygame.Surface([width, height])
-        self.image.fill((179, 176, 168))
-        self.rect = self.image.get_rect()
+        self.surface = pygame.Surface([width, height])
+        self.image = pygame.image.load(sprite)
+        self.rect = self.surface.get_rect()
         self.rect.x = x
         self.rect.y = y
 
