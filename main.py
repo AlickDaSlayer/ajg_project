@@ -112,9 +112,8 @@ def mainloop():
                 if event.key == pygame.K_SPACE and player.space_pressed is True: 
                     player.space_pressed = False
                     player.can_doublejump = True
-            # if event.type == pygame.KEYUP:
-            #     if event.key == pygame.K_ESCAPE and player.space_pressed is False:
-            #         player.can_doublejump = False
+                    player.jump()
+
 
 
         ## - Logic for game timer 

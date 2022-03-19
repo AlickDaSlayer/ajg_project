@@ -42,6 +42,11 @@ class Player(pygame.sprite.Sprite):
 
     
     def jump(self):
+        
+        if self.can_doublejump is True:
+            self.jumping[1] = -8
+            self.can_doublejump = False
+
         # Deceleration on the upward jumping speed is by default 0
         self.jump_dec = [0, 0]
         # If the player is jumping and the player is going upwards
@@ -56,10 +61,7 @@ class Player(pygame.sprite.Sprite):
         if self.is_jumping is False: # If the player is not jumping
             self.is_falling = False
             self.is_jumping = True
-
-        if self.can_doublejump is True:
-            self.jumping[1] = -6.5
-            self.can_doublejump = False
+            self.space_pressed = False
 
         self.jumping[1] += self.jump_dec[1]
 
