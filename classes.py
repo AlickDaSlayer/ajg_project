@@ -24,6 +24,9 @@ class Player(pygame.sprite.Sprite):
         self.jump_dec = [0, 0]
         self.can_doublejump = False
         self.space_pressed = False
+        # wall sliding
+        self.left_sliding = False
+        self.right_sliding = False
 
     def delete(self):
         self.kill()
@@ -32,13 +35,16 @@ class Player(pygame.sprite.Sprite):
         # Gravitational acceleration is by default 0
         self.gravity_acc = [0, 0]
         # If the speed of falling doesn't exceed 10 and the player isn't in the process of jumping upwards
-        if self.falling[1] <= 10 and self.jumping[1] >= 0 and self.is_falling:
+        if self.falling[1] <= 10 and self.jumping[1] >= 0 and self.is_falling and self.left_sliding is False or self.right_sliding is False:
             # Sets the acceleration to a value
             self.gravity_acc = [0, 0.5]
         if self.is_falling and self.can_doublejump is False:
             # Increases the speed of falling when in air
             self.falling[1] += self.gravity_acc[1]
             self.move("down")
+
+        while self.left_sliding is True or self.right_sliding is True:
+            self.gravity_acc = [0, 0.1]
 
     
     def jump(self):
@@ -82,8 +88,14 @@ class Player(pygame.sprite.Sprite):
             if self.rect.colliderect(wall):
                 if direction == "left":
                     self.rect.left = wall.rect.right
+                    self.left_sliding = True
+                else:
+                    self.left_sliding = False
                 if direction == "right":
                     self.rect.right = wall.rect.left
+                    self.right_sliding = True
+                else:
+                    self.right_sliding = False 
                 if direction == "up":
                     self.rect.top = wall.rect.bottom
                     self.jumping[1] = 0
