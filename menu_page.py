@@ -1,6 +1,8 @@
 import pygame
 import sys
-from main import *
+from main import level1
+
+pygame.init()
 
 screen = pygame.display.set_mode((800,480))
 
