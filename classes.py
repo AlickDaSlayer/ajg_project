@@ -5,6 +5,8 @@ import math
 wall_group = pygame.sprite.Group()
 portal_group = pygame.sprite.Group()
 
+clock = pygame.time.Clock()
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, colour, width, height, x, y, group):
         super().__init__(group)
@@ -28,6 +30,8 @@ class Player(pygame.sprite.Sprite):
         # wall sliding
         self.left_sliding = False
         self.right_sliding = False
+        # cooldown
+        self.cooldown_tracker = 0
 
     def delete(self):
         self.kill()
@@ -68,7 +72,7 @@ class Player(pygame.sprite.Sprite):
             self.space_pressed = False
 
         self.jumping[1] += self.jump_dec[1]
-        print(self.jumping[1])
+        #print(self.jumping[1])
 
     def move(self, direction):
         
@@ -103,15 +107,29 @@ class Player(pygame.sprite.Sprite):
 
 
     def update(self):
+        
+        self.cooldown_tracker += clock.get_time()
+        print(self.cooldown_tracker)
+        if self.cooldown_tracker > 3000:
+            self.cooldown_tracker = 0
+
         # Move the player if relevant key press detected.
         keys = pygame.key.get_pressed()
         # Player 
         if keys[pygame.K_a]:
             self.move("left")
             self.is_jumping = True
+        if keys[pygame.K_LSHIFT] and keys[pygame.K_a] and self.cooldown_tracker == 0:
+            self.step[0] = 15
+            self.move("left")
+            self.step[0] = 4
         if keys[pygame.K_d]:
             self.move("right")
             self.is_jumping = True
+        if keys[pygame.K_LSHIFT] and keys[pygame.K_d] and self.cooldown_tracker == 0:
+            self.step[0] = 15
+            self.move("right")
+            self.step[0] = 4
         if keys[pygame.K_SPACE] and self.can_doublejump is False:
             self.jump()
             self.move("up")
@@ -164,4 +182,14 @@ class Portal(pygame.sprite.Sprite):
     def delete(self):
         self.kill()
     
+class Traps(pygame.sprite.Sprite):
+    def __init__(self, colour, width, height, x, y, group):
+        super().__init__(group)
+        self.image = pygame.Surface([width, height])
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
 
+    def delete(self):
+        self.kill()

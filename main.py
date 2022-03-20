@@ -118,7 +118,6 @@ def level1():
                     player.space_pressed = False
                     player.can_doublejump = True
                     player.jump()
- 
 
         ## - Logic for game timer 
         total_seconds = frame_count // frame_rate
