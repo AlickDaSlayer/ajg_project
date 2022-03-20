@@ -4,6 +4,7 @@ import math
 
 wall_group = pygame.sprite.Group()
 portal_group = pygame.sprite.Group()
+traps_group = pygame.sprite.Group() 
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, colour, width, height, x, y, group):
@@ -84,6 +85,7 @@ class Player(pygame.sprite.Sprite):
         if direction == 'down':
             self.rect.bottom += self.falling[1]
 
+        # collision with walls and ground
         walls_hit = pygame.sprite.spritecollide(self, wall_group, False)
         for wall in walls_hit:
             if self.rect.colliderect(wall):
@@ -100,7 +102,6 @@ class Player(pygame.sprite.Sprite):
                     self.is_falling = False
                     self.falling[1] = 0
                     self.jumping[1] = -6.5
-
 
     def update(self):
 

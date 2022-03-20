@@ -39,6 +39,10 @@ class CameraGroup(pygame.sprite.Group):
         for sprite in self.sprites(): 
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image, offset_pos)
+    
+    def delete(self):
+        for sprite in self.sprites():
+            sprite.kill()
 
 
 BLACK = (0, 0, 0)
@@ -48,6 +52,7 @@ LILAC = (169, 126, 230)
 PURPLE = (105, 39, 196)
 DARKBLUE = (22, 57, 110)
 GOLD = (252, 186, 3)
+RED = (255, 0, 0)
 
 
 def draw_timer(screen, x, y, output):
@@ -87,6 +92,10 @@ def draw_map(map):
                 portal = Portal(GOLD, 16, 16, x, y, camera_group)
                 screen.blit(portal.image, [portal.rect.x, portal.rect.y])
                 portal_group.add(portal)
+            if col == 4:
+                trap = Traps(RED, 16, 16, x, y, camera_group)
+                screen.blit(trap.image, [trap.rect.x, trap.rect.y])
+                traps_group.add(trap)
             x += 16
         x = 0
         y += 16
@@ -102,6 +111,8 @@ def level1():
     fog = Fog("assets/fog.png", 800, 860, -800, 0, camera_group)
 
     frame_count = 0
+
+    game_end = False
 
     done = False
     while not done:
@@ -129,25 +140,24 @@ def level1():
         player.cooldown_tracker += clock.get_time()
         print(player.cooldown_tracker)
 
-        ## - Logic for fog 
-        death = pygame.sprite.collide_rect(player, fog)
-        if death == True:
-            player.delete()
-            for wall in wall_group:
-                wall.delete()
-            fog.delete()
+        ## - Collision with fog 
+        if pygame.sprite.collide_rect(player, fog) == True:
+            camera_group.delete()
+            game_end = True
             done = True 
+        
+        ## - Collision with traps
+        for trap in traps_group:
+            if player.rect.colliderect(trap):
+                camera_group.delete()
+                game_end = True
+                done = True             
 
         ## - Next level
         portal_hit = pygame.sprite.spritecollide(player, portal_group, False)
         for portal in portal_hit:
             if player.rect.colliderect(portal):
-                player.delete()
-                for wall in wall_group:
-                    wall.delete()
-                fog.delete()
-                for x in portal_group:
-                    x.delete()
+                camera_group.delete()
                 done = True
 
 
@@ -165,7 +175,9 @@ def level1():
         pygame.display.flip()
     #endwhile
 
-    level2()
+    if game_end is False:
+        level2()
+
 #endfunction
 
 def level2():
