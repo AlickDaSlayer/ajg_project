@@ -30,7 +30,6 @@ class Player(pygame.sprite.Sprite):
         self.right_sliding = False
         # cooldown
         self.cooldown_tracker = 0
-        self.dashed = False
 
     def delete(self):
         self.kill()
@@ -111,23 +110,15 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_a]:
             self.move("left")
             self.is_jumping = True
-        if keys[pygame.K_LSHIFT] and keys[pygame.K_a] and self.dashed is False:
-            self.dashed = True 
-            if self.dashed is True:
-                self.step[0] = 15
-                self.move("left")
-                self.step[0] = 4
+        if keys[pygame.K_LSHIFT] and keys[pygame.K_a]:
             self.cooldown_tracker = 0
+            self.rect.right -= 15
         if keys[pygame.K_d]:
             self.move("right")
             self.is_jumping = True
-        if keys[pygame.K_LSHIFT] and keys[pygame.K_d] and self.dashed is False:
-            self.dashed = True 
-            if self.dashed is True:
-                self.step[0] = 15
-                self.move("right")
-                self.step[0] = 4
+        if keys[pygame.K_LSHIFT] and keys[pygame.K_d]:
             self.cooldown_tracker = 0
+            self.rect.right += 15
         if keys[pygame.K_SPACE] and self.can_doublejump is False:
             self.jump()
             self.move("up")

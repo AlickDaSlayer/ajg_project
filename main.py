@@ -126,8 +126,7 @@ def level1():
         output_string = "Time: {0:02}:{1:02}".format(minutes, seconds)
 
         ## - Logic for cooldown
-        while player.dashed is False:
-            player.cooldown_tracker += clock.get_time()
+        player.cooldown_tracker += clock.get_time()
         print(player.cooldown_tracker)
 
         ## - Logic for fog 
