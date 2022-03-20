@@ -53,6 +53,7 @@ PURPLE = (105, 39, 196)
 DARKBLUE = (22, 57, 110)
 GOLD = (252, 186, 3)
 RED = (255, 0, 0)
+GREEN = (0, 255, 0)
 
 
 def draw_timer(screen, x, y, output):
@@ -96,6 +97,9 @@ def draw_map(map):
                 trap = Traps(RED, 16, 16, x, y, camera_group)
                 screen.blit(trap.image, [trap.rect.x, trap.rect.y])
                 traps_group.add(trap)
+            if col == 5:
+                enemy = Enemy(GREEN, 16, 16, x, y, camera_group)
+                screen.blit(enemy.image, [enemy.rect.x, enemy.rect.y])
             x += 16
         x = 0
         y += 16

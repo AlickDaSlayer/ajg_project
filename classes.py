@@ -5,6 +5,7 @@ import math
 wall_group = pygame.sprite.Group()
 portal_group = pygame.sprite.Group()
 traps_group = pygame.sprite.Group() 
+enemy_group = pygame.sprite.Group()
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, colour, width, height, x, y, group):
@@ -102,6 +103,7 @@ class Player(pygame.sprite.Sprite):
                     self.is_falling = False
                     self.falling[1] = 0
                     self.jumping[1] = -6.5
+        
 
     def update(self):
 
@@ -180,6 +182,21 @@ class Traps(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+
+    def delete(self):
+        self.kill()
+
+class Enemy(pygame.sprite.Sprite):
+    def __init__(self, colour, width, height, x, y, group):
+        super().__init__(group)
+        self.image = pygame.Surface([width, height])
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+    
+    def update(self):
+        pass
 
     def delete(self):
         self.kill()
