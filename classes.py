@@ -109,19 +109,29 @@ class Player(pygame.sprite.Sprite):
 
         # Move the player if relevant key press detected.
         keys = pygame.key.get_pressed()
-        # Player 
-        if keys[pygame.K_a]:
+        # Player
+        if keys[pygame.K_LSHIFT] and keys[pygame.K_a]:
+            if self.cooldown_tracker > 3000:
+                self.cooldown_tracker = 0
+                self.rect.x -= 150
+            else:
+                self.move("left")
+                self.is_jumping = True
+        elif keys[pygame.K_a]:
             self.move("left")
             self.is_jumping = True
-        if keys[pygame.K_LSHIFT] and keys[pygame.K_a]:
-            self.cooldown_tracker = 0
-            self.rect.right -= 15
-        if keys[pygame.K_d]:
+
+        if keys[pygame.K_LSHIFT] and keys[pygame.K_d]:
+            if self.cooldown_tracker > 3000:
+                self.cooldown_tracker = 0
+                self.rect.x += 150
+            else:
+                self.move("right")
+                self.is_jumping = True
+        elif keys[pygame.K_d]:
             self.move("right")
             self.is_jumping = True
-        if keys[pygame.K_LSHIFT] and keys[pygame.K_d]:
-            self.cooldown_tracker = 0
-            self.rect.right += 15
+
         if keys[pygame.K_SPACE] and self.can_doublejump is False:
             self.jump()
             self.move("up")

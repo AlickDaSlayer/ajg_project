@@ -26,6 +26,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.updates" />
   </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
@@ -68,21 +69,13 @@
       <screen x="0" y="0" width="1536" height="816" />
     </state>
     <state x="548" y="149" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1642160554786" />
-    <state width="312" height="657" key="GridCell.Tab.0.bottom" timestamp="1638404759050">
+    <state x="277" y="53" key="SettingsEditor" timestamp="1647810043935">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state width="312" height="657" key="GridCell.Tab.0.bottom/0.0.1536.816@0.0.1536.816" timestamp="1638404759050" />
-    <state width="312" height="657" key="GridCell.Tab.0.center" timestamp="1638404759049">
+    <state x="277" y="53" key="SettingsEditor/0.0.1536.816@0.0.1536.816" timestamp="1647810043935" />
+    <state x="431" y="137" width="672" height="678" key="search.everywhere.popup" timestamp="1647809936322">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state width="312" height="657" key="GridCell.Tab.0.center/0.0.1536.816@0.0.1536.816" timestamp="1638404759049" />
-    <state width="312" height="657" key="GridCell.Tab.0.left" timestamp="1638404759049">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="312" height="657" key="GridCell.Tab.0.left/0.0.1536.816@0.0.1536.816" timestamp="1638404759049" />
-    <state width="312" height="657" key="GridCell.Tab.0.right" timestamp="1638404759049">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="312" height="657" key="GridCell.Tab.0.right/0.0.1536.816@0.0.1536.816" timestamp="1638404759049" />
+    <state x="431" y="137" width="672" height="678" key="search.everywhere.popup/0.0.1536.816@0.0.1536.816" timestamp="1647809936322" />
   </component>
 </project>
