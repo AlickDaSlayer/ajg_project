@@ -138,11 +138,11 @@ def level1():
         total_seconds = frame_count // frame_rate
         minutes = total_seconds // 60
         seconds = total_seconds % 60
-        output_string = "Time: {0:02}:{1:02}".format(minutes, seconds)
+        output_string = "Time: {0:02}:{1:02}".format(minutes, seconds) 
 
         ## - Logic for cooldown
         player.cooldown_tracker += clock.get_time()
-        print(player.cooldown_tracker)
+        #print(player.cooldown_tracker)
 
         ## - Collision with fog 
         if pygame.sprite.collide_rect(player, fog) == True:
@@ -150,6 +150,12 @@ def level1():
             game_end = True
             done = True 
         
+        ## - Collision with enemies
+        for enemy in enemy_group:
+            if player.rect.colliderect(enemy):
+                print("true")
+
+
         ## - Collision with traps
         for trap in traps_group:
             if player.rect.colliderect(trap):

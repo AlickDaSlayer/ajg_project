@@ -27,9 +27,6 @@ class Player(pygame.sprite.Sprite):
         self.jump_dec = [0, 0]
         self.can_doublejump = False
         self.space_pressed = False
-        # wall sliding
-        self.left_sliding = False
-        self.right_sliding = False
         # cooldown
         self.cooldown_tracker = 0
 
@@ -103,6 +100,7 @@ class Player(pygame.sprite.Sprite):
                     self.is_falling = False
                     self.falling[1] = 0
                     self.jumping[1] = -6.5
+                
         
 
     def update(self):
@@ -204,9 +202,20 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.step = 4
+
+    def move(self):
+        walls_hit = pygame.sprite.spritecollide(self, wall_group, False)
+        for wall in walls_hit:
+            if self.rect.colliderect(wall):
+                self.step = self.step * -1
+
     
     def update(self):
-        pass
+        self.rect.x += self.step
+
+        self.move()
+            
 
     def delete(self):
         self.kill()
